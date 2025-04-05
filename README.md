@@ -1,0 +1,4 @@
+## KozminskiGuessr
+
+All rights reserved.
+
