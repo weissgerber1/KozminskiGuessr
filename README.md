@@ -1,4 +1,3 @@
 ## KozminskiGuessr
 
-All rights reserved.
-
+enjoy!
