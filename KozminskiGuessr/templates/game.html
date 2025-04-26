@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game - Kozminski Guessr</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        #game-container { text-align: center; margin-top: 50px; }
+        #score-ticker { position: fixed; left: 20px; top: 50%; font-size: 24px; }
+        #error-message { color: red; margin-top: 20px; font-size: 16px; }
+        .correct { border-color: green; background-color: #e0ffe0; }
+        .incorrect { border-color: red; background-color: #ffe0e0; }
+    </style>
+</head>
+<body>
+    <div id="score-ticker">Score: 0</div>
+    <div id="game-container">
+        <img id="classroom-image" src="" alt="Classroom" style="max-width: 50%;">
+        <div>
+            <select id="building">
+                <option value="">Select Building</option>
+                <option value="A">Building A</option>
+                <option value="B">Building B</option>
+                <option value="C">Building C</option>
+                <option value="D">Building D</option>
+            </select>
+            <select id="floor">
+                <option value="">Select Floor</option>
+                <option value="0">0 Floor</option>
+                <option value="1">1st Floor</option>
+                <option value="2">2nd Floor</option>
+                <option value="3">3rd Floor</option>
+            </select>
+            <input id="classroom" list="classroom-list" placeholder="Classroom...">
+            <datalist id="classroom-list"></datalist>
+        </div>
+        <button id="guess-btn">GUESS</button>
+        <div id="feedback"></div>
+        <div id="error-message"></div>
+        <div id="summary" style="display: none;"></div>
+    </div>
+    <script>
+        // error handling to ensure game.js loads and DOM elements are present
+        window.onload = function() {
+            if (typeof startGame !== 'function') {
+                document.getElementById('error-message').textContent = 'Error: Game script failed to load. Please refresh the page.';
+                return;
+            }
+            // verify required DOM elements
+            const requiredElements = ['score-ticker', 'game-container', 'classroom-image', 'building', 'floor', 'classroom', 'classroom-list', 'guess-btn', 'feedback', 'summary'];
+            for (const id of requiredElements) {
+                if (!document.getElementById(id)) {
+                    document.getElementById('error-message').textContent = `Error: Missing required element "${id}". Please contact support.`;
+                    return;
+                }
+            }
+        };
+    </script>
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kozminski Guessr - Start</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background-image: url('/static/images/kozminski_university.jpg');
+            background-size: cover;
+            text-align: center;
+            padding-top: 20%;
+        }
+        .play-btn {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button onclick="location.href='/leaderboard'">Leaderboard</button>
+        <button onclick="location.href='/contribute'">Contribute</button>
+        <button onclick="location.href='/login'">Log In</button>
+    </div>
+    <h1>Think you know Kozminski? Prove it!</h1>
+    <button class="play-btn" onclick="location.href='/login?next=/game'">PLAY</button>
+</body>
+</html>
