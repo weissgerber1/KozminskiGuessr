@@ -1,0 +1,7 @@
+[
+    {"building": "A", "floor": "0", "classroom_number": "A023"},
+    {"building": "D", "floor": "1", "classroom_number": "D218"},
+    {"building": "A", "floor": "1", "classroom_number": "A123"},
+    {"building": "D", "floor": "3", "classroom_number": "D300"},
+    {"building": "D", "floor": "2", "classroom_number": "D200"}
+]
