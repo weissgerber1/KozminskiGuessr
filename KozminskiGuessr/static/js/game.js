@@ -23,15 +23,23 @@ function showRound() {
         btn.textContent = 'GUESS';
         btn.onclick = makeGuess;
         document.getElementById('feedback').innerHTML = '';
+        document.getElementById('round-counter').textContent = `Round: ${currentRound + 1}/5`;
     } else {
         showSummary();
     }
 }
 
 function resetInputs() {
-    document.getElementById('building').value = '';
-    document.getElementById('floor').value = '';
-    document.getElementById('classroom').value = '';
+    const building = document.getElementById('building');
+    const floor = document.getElementById('floor');
+    const classroom = document.getElementById('classroom');
+    building.value = '';
+    floor.value = '';
+    classroom.value = '';
+    // Remove classes to reset styling
+    building.classList.remove('correct', 'incorrect');
+    floor.classList.remove('correct', 'incorrect');
+    classroom.classList.remove('correct', 'incorrect');
 }
 
 async function makeGuess() {

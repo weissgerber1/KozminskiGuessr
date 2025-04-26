@@ -9,10 +9,13 @@
         #error-message { color: red; margin-top: 20px; font-size: 16px; }
         .correct { border-color: green; background-color: #e0ffe0; }
         .incorrect { border-color: red; background-color: #ffe0e0; }
+        #round-counter { position: absolute; left: 20px; top: 20px; font-size: 18px; }
+        #points-explanation { position: fixed; right: 20px; top: 20px; width: 200px; text-align: left; font-size: 14px; }
     </style>
 </head>
 <body>
     <div id="score-ticker">Score: 0</div>
+    <div id="round-counter">Round: 1/5</div>
     <div id="game-container">
         <img id="classroom-image" src="" alt="Classroom" style="max-width: 50%;">
         <div>
@@ -38,6 +41,16 @@
         <div id="error-message"></div>
         <div id="summary" style="display: none;"></div>
     </div>
+    <div id="points-explanation">
+        <h3>How Points Work</h3>
+        <p>
+            - Correct classroom: +5 points<br>
+            - Correct building and floor: +3 points<br>
+            - Correct floor only: +2 points<br>
+            - Correct building only: +1 point<br>
+            - Everything incorrect: 0 points😭
+        </p>
+    </div>
     <script>
         // error handling to ensure game.js loads and DOM elements are present
         window.onload = function() {
@@ -46,7 +59,7 @@
                 return;
             }
             // verify required DOM elements
-            const requiredElements = ['score-ticker', 'game-container', 'classroom-image', 'building', 'floor', 'classroom', 'classroom-list', 'guess-btn', 'feedback', 'summary'];
+            const requiredElements = ['score-ticker', 'game-container', 'classroom-image', 'building', 'floor', 'classroom', 'classroom-list', 'guess-btn', 'feedback', 'summary', 'round-counter'];
             for (const id of requiredElements) {
                 if (!document.getElementById(id)) {
                     document.getElementById('error-message').textContent = `Error: Missing required element "${id}". Please contact support.`;
@@ -56,5 +69,5 @@
         };
     </script>
     <script src="{{ url_for('static', filename='js/game.js') }}"></script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9367ac585e3ebca8',t:'MTc0NTY4NzIxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
