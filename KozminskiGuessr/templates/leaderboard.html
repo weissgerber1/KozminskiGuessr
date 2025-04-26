@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard - Kozminski Guessr</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .leaderboard { text-align: center; margin: 50px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button onclick="location.href='/leaderboard'">Leaderboard</button>
+        <button onclick="location.href='/contribute'">Contribute</button>
+        <button onclick="location.href='/login'">Log In</button>
+    </div>
+    <div class="leaderboard">
+        <h1>Main Leaderboard</h1>
+        {% for user in main %}
+            <p>{{ loop.index }}. {{ user.username }} - {{ user.total_score }} (High: {{ user.high_score }})</p>
+        {% endfor %}
+        <h1>Contribution Leaderboard</h1>
+        {% for user, count in contrib %}
+            <p>{{ loop.index }}. {{ user }} - {{ count }} photos</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

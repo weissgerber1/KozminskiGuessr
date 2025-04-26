@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Kozminski Guessr</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .container { text-align: center; margin-top: 10%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        {% if error %}<p style="color: red;">{{ error }}</p>{% endif %}
+        <form method="POST">
+            <input type="text" name="username" placeholder="USERNAME" required>
+            <input type="password" name="password" placeholder="PASSWORD" required>
+            <button type="submit" name="action" value="login">LOGIN</button>
+            <button type="submit" name="action" value="signup">SIGN UP</button>
+        </form>
+        <form method="POST">
+            <input type="text" name="guestname" placeholder="GUESTNAME" required>
+            <button type="submit" name="action" value="guest">CONTINUE AS GUEST</button>
+        </form>
+    </div>
+</body>
+</html>

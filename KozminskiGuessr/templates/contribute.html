@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contribute - Kozminski Guessr</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .container { text-align: center; margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button onclick="location.href='/leaderboard'">Leaderboard</button>
+        <button onclick="location.href='/contribute'">Contribute</button>
+        <button onclick="location.href='/login'">Log In</button>
+    </div>
+    <div class="container">
+        <h1>Contribute</h1>
+        {% if message %}<p>{{ message }}</p>{% endif %}
+        <form method="POST" enctype="multipart/form-data" onsubmit="return confirm('Are you sure?');">
+            <input type="file" name="image" accept="image/*" required>
+            <select id="building" name="building">
+                <option value="">Select Building</option>
+                <option value="A">Building A</option>
+                <option value="B">Building B</option>
+                <option value="C">Building C</option>
+                <option value="D">Building D</option>
+            </select>
+            <select id="floor" name="floor">
+                <option value="">Select Floor</option>
+                <option value="0">0 Floor</option>
+                <option value="1">1st Floor</option>
+                <option value="2">2nd Floor</option>
+                <option value="3">3rd Floor</option>
+            </select>
+            <input id="classroom" list="classroom-list" name="classroom_number" placeholder="Classroom..." required>
+            <datalist id="classroom-list"></datalist>
+            <input type="hidden" id="classroom_id" name="classroom_id">
+            <button type="submit">SUBMIT</button>
+        </form>
+    </div>
+    <script>
+        async function updateClassroomList() {
+            const building = document.getElementById('building').value;
+            const floor = document.getElementById('floor').value;
+            const response = await fetch(`/api/classrooms?building=${building}&floor=${floor}`);
+            const classrooms = await response.json();
+            const datalist = document.getElementById('classroom-list');
+            datalist.innerHTML = classrooms.map(c => `<option value="${c.classroom_number}" data-id="${c.id}">`).join('');
+        }
+
+        // Update classroom_id when classroom input changes
+        document.getElementById('classroom').addEventListener('change', function() {
+            const datalist = document.getElementById('classroom-list');
+            const selectedValue = this.value;
+            const selectedOption = datalist.querySelector(`option[value="${selectedValue}"]`);
+            const classroomId = selectedOption ? selectedOption.getAttribute('data-id') : '';
+            document.getElementById('classroom_id').value = classroomId;
+        });
+
+        // Update classroom list when building or floor changes
+        document.getElementById('building').addEventListener('change', updateClassroomList);
+        document.getElementById('floor').addEventListener('change', updateClassroomList);
+
+        // Initial update
+        updateClassroomList();
+    </script>
+</body>
+</html>
