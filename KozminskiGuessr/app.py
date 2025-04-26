@@ -27,6 +27,15 @@ def login_required(f):
             return redirect(url_for('login', next=request.url))
         return f(*args, **kwargs)
     return decorated_function
+# context processor for user_id 
+# for displaying of the username in place of the login button
+@app.context_processor
+def inject_user():
+    user_id = session.get('user_id')
+    if user_id:
+        user = db.session.get(User, user_id)
+        return dict(current_user=user)
+    return dict(current_user=None)
 
 # routes
 @app.route('/')
@@ -67,6 +76,11 @@ def login():
             session['user_id'] = user.id
             return redirect(next_page)
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None) 
+    return redirect(url_for('start'))
 
 @app.route('/game')
 @login_required

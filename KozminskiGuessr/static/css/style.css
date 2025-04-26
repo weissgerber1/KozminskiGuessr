@@ -11,6 +11,7 @@ body {
     padding: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .header button {
@@ -43,3 +44,47 @@ input, select {
 
 .correct { background-color: #28a745; }
 .incorrect { background-color: #dc3545; }
+
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-menu-button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.user-menu-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+    border-radius: 5px;
+    padding: 5px 0;
+}
+
+.user-menu-dropdown a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+}
+
+.user-menu-dropdown a:hover {
+    background-color: #ddd;
+}
+
+.user-menu:hover .user-menu-dropdown {
+    display: block;
+}
