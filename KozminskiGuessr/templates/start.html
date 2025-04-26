@@ -3,27 +3,58 @@
 <head>
     <title>Kozminski Guessr - Start</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <style>
-        body {
-            background-image: url('/static/images/kozminski_university.jpg');
-            background-size: cover;
-            text-align: center;
-            padding-top: 20%;
-        }
-        .play-btn {
-            background-color: #0056b3;
-            color: white;
-            padding: 20px 40px;
-            border-radius: 10px;
-            font-size: 24px;
-        }
-    </style>
 </head>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+        padding-top: 15%; 
+        position: relative;
+    }
+
+    body::before {
+        content: "";
+        position: absolute;
+        top: 0; 
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/static/images/kozminski_university.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        z-index: -2;
+    }
+
+    body::after {
+        content: "";
+        position: absolute;
+        top: 0; 
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.2); /* white cover */
+        z-index: -1;
+    }
+
+</style>
+
 <body>
     <div class="header">
-        <button onclick="location.href='/leaderboard'">Leaderboard</button>
-        <button onclick="location.href='/contribute'">Contribute</button>
-        <div> 
+        <!-- Left side of the header -->
+        <div class="header-left">
+            <button onclick="location.href='/'">Main</button>
+            <button onclick="location.href='/leaderboard'">Leaderboard</button>
+            <button onclick="location.href='/contribute'">Contribute</button>
+        </div>
+    
+        <!-- Right side of the header with user login / logout functionality -->
+        <div class="header-right">
             {% if current_user %}
                 <div class="user-menu">
                     <button class="user-menu-button">
@@ -39,6 +70,7 @@
             {% endif %}
         </div>
     </div>
+
     <h1>Think you know Kozminski? Prove it!</h1>
     <button class="play-btn" onclick="location.href='/login?next=/game'">PLAY</button>
 </body>

@@ -1,30 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+15&family=Quicksand:wght@300..700&display=swap');
+
 body {
     background-color: #007BFF;
-    font-family: Arial, sans-serif;
+    font-family: 'Jersey 15', sans-serif;
     color: white;
     margin: 0;
     padding: 0;
 }
 
 .header {
-    background-color: #E9ECEF;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header button {
     background-color: #0056b3;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 4px 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Space buttons out with one section on the left and the other on the right */
+    z-index: 10;
+    box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+    align-items: center;
+    border-bottom: 3px dashed white;
+    border-image: repeating-linear-gradient(
+        to right,
+        white 0 5px,       /* dash */
+        transparent 5px 10px,
+        white 10px 12px,   /* dot (small line segment) */
+        transparent 12px 20px
+    ) 1;
 }
 
+.header-left {
+    display: flex;
+    gap: 10px; /* Space the left buttons */
+}
+
+.header-right {
+    display: flex;
+    justify-content: flex-end; /* Align the "Log In" button to the right */
+}
+
+/* Explicitly set font-family for buttons */
+.header button,
 button {
+    font-family: 'Jersey 15', sans-serif; /* Ensures the button text uses Jersey 15 */
+    background-color: transparent;
+    color: #ccc;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: 22px;
+    min-width: 120px; /* Ensures the buttons have a minimum width */
+}
+
+.header button:hover {
+    background-color: #004494;
+    color: white;
+    transform: scale(1.08);
+    text-shadow: 0 0 8px white; 
+    transition: all 0.2s ease-in-out;
 }
 
 input, select {
@@ -44,6 +79,8 @@ input, select {
 
 .correct { background-color: #28a745; }
 .incorrect { background-color: #dc3545; }
+
+/* user profile, log in, log out */
 
 .user-menu {
     position: relative;
