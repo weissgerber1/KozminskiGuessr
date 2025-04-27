@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+15&family=Quicksand:wght@300..700&display=swap');
 
 body {
-    background-color: #007BFF;
+    background-image: url('/static/images/background.png'); 
+    background-color: #007BFF; 
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed; 
     font-family: 'Jersey 15', sans-serif;
     color: white;
     margin: 0;
@@ -16,34 +20,34 @@ body {
     left: 0;
     width: 100%;
     display: flex;
-    justify-content: space-between; /* Space buttons out with one section on the left and the other on the right */
+    justify-content: space-between; 
     z-index: 10;
-    box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+    box-sizing: border-box; 
     align-items: center;
     border-bottom: 3px dashed white;
     border-image: repeating-linear-gradient(
         to right,
-        white 0 5px,       /* dash */
+        white 0 5px,       
         transparent 5px 10px,
-        white 10px 12px,   /* dot (small line segment) */
+        white 10px 12px,   
         transparent 12px 20px
     ) 1;
 }
 
 .header-left {
     display: flex;
-    gap: 10px; /* Space the left buttons */
+    gap: 10px; 
 }
 
 .header-right {
     display: flex;
-    justify-content: flex-end; /* Align the "Log In" button to the right */
+    justify-content: flex-end;
 }
 
-/* Explicitly set font-family for buttons */
+
 .header button,
 button {
-    font-family: 'Jersey 15', sans-serif; /* Ensures the button text uses Jersey 15 */
+    font-family: 'Jersey 15', sans-serif; 
     background-color: transparent;
     color: #ccc;
     border: none;
@@ -51,7 +55,7 @@ button {
     border-radius: 10px;
     cursor: pointer;
     font-size: 22px;
-    min-width: 120px; /* Ensures the buttons have a minimum width */
+    min-width: 120px; 
 }
 
 .header button:hover {
