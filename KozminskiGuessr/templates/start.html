@@ -6,13 +6,54 @@
 </head>
 
 <style>
+
+    
+    .kozminski-title {
+    font-size: 45px;
+    font-weight: bold;
+    color: white;
+    -webkit-text-stroke: 0.5px #0056b3; /* blue border around each letter */
+    text-align: center;
+    margin-bottom: 45px;
+    text-shadow:
+        2px 2px 0 #0056b3,  /* solid blue shadow for depth */
+        4px 4px 5px rgba(0, 0, 0, 0.5); /* blurred black shadow for extra 3D */
+    }
+
+    .play-btn {
+    background-color: #0056b3;
+    color: white;
+    padding: 12px 70px;
+    border-radius: 18px;
+    font-size: 40px;
+    cursor: pointer;
+    border: 2px solid #3399ff; /* neon blue border */
+    box-shadow: 
+        0 0 4px #3399ff,
+        0 0 8px #3399ff,
+        0 0 12px #3399ff; /* softer, lighter initial glow */
+    transition: all 0.3s ease-in-out;
+    }
+
+    .play-btn:hover {
+    background-color: #004494;
+    transform: scale(1.08);
+    box-shadow: 
+        0 0 20px #00ffff,
+        0 0 30px #00ffff,
+        0 0 40px #00ffff,
+        0 0 60px #00ffff;
+    text-shadow: 0 0 10px white;
+    }
+
+
     body {
         margin: 0;
         height: 100vh;
         width: 100%;
         overflow: hidden;
         text-align: center;
-        padding-top: 15%; 
+        padding-top: 12%; 
         position: relative;
     }
 
@@ -71,7 +112,7 @@
         </div>
     </div>
 
-    <h1>Think you know Kozminski? Prove it!</h1>
+    <h1 class="kozminski-title">Think you know Kozminski?<br>Prove it!</h1>
     <button class="play-btn" onclick="location.href='/login?next=/game'">PLAY</button>
 </body>
 </html>
