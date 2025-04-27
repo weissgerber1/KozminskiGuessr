@@ -3,6 +3,7 @@
 <head>
     <title>Contribute - Kozminski Guessr</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contribute.css') }}">
     <style>
         .container { text-align: center; margin-top: 50px; }
     </style>
@@ -34,31 +35,49 @@
         </div>
     </div>
 
+    <div class="contribute-title">
+        Contribute
+        <svg class="border-svg" viewBox="0 0 100 40" preserveAspectRatio="none">
+            <rect x="2" y="2" width="96" height="36" rx="10" ry="10" />
+        </svg>
+    </div>
+    <img src="{{ url_for('static', filename='images/hands_contr.png') }}" alt="Contribute Image" class="title-image">
+    
+
     <div class="container">
-        <h1>Contribute</h1>
         {% if message %}<p>{{ message }}</p>{% endif %}
         <form method="POST" enctype="multipart/form-data" onsubmit="return confirm('Are you sure?');">
-            <input type="file" name="image" accept="image/*" required>
-            <select id="building" name="building">
-                <option value="">Select Building</option>
-                <option value="A">Building A</option>
-                <option value="B">Building B</option>
-                <option value="C">Building C</option>
-                <option value="D">Building D</option>
-            </select>
-            <select id="floor" name="floor">
-                <option value="">Select Floor</option>
-                <option value="0">0 Floor</option>
-                <option value="1">1st Floor</option>
-                <option value="2">2nd Floor</option>
-                <option value="3">3rd Floor</option>
-            </select>
-            <input id="classroom" list="classroom-list" name="classroom_number" placeholder="Classroom..." required>
-            <datalist id="classroom-list"></datalist>
-            <input type="hidden" id="classroom_id" name="classroom_id">
+            
+            <!-- File input on the first row (this is on its own line) -->
+            <div class="form-row">
+                <input type="file" name="image" accept="image/*" required>
+            </div>
+            
+            <!-- Building, Floor, and Classroom on the next row (this is horizontally aligned) -->
+            <div class="form-row">
+                <select id="building" name="building">
+                    <option value="">Select Building</option>
+                    <option value="A">Building A</option>
+                    <option value="B">Building B</option>
+                    <option value="C">Building C</option>
+                    <option value="D">Building D</option>
+                </select>
+                <select id="floor" name="floor">
+                    <option value="">Select Floor</option>
+                    <option value="0">0 Floor</option>
+                    <option value="1">1st Floor</option>
+                    <option value="2">2nd Floor</option>
+                    <option value="3">3rd Floor</option>
+                </select>
+                <input id="classroom" list="classroom-list" name="classroom_number" placeholder="Classroom..." required>
+                <datalist id="classroom-list"></datalist>
+            </div>
+
+            <!-- Submit button -->
             <button type="submit">SUBMIT</button>
         </form>
     </div>
+    
     <script>
         async function updateClassroomList() {
             const building = document.getElementById('building').value;

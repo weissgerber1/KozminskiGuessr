@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Jersey 15', sans-serif;
+}
+
+.header {
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+/* contribute part title, boarder, image) styling */
+.contribute-title {
+    position: relative; 
+    padding: 20px 30px;
+    font-size: 36px; 
+    color: white;
+    background: transparent;
+    border-radius: 10px;
+    overflow: visible;
+    top: 70px; 
+    transform: translateX(-20%);
+    z-index: 1; 
+    font-family: 'Jersey 15', sans-serif; 
+    text-shadow: 2px 2px 5px #0056b3; /*glow effect */
+}
+
+.contribute-title .border-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.contribute-title .border-svg rect {
+    fill: none;
+    stroke: white;
+    stroke-width: 1.5;
+    stroke-dasharray: 12 8 2 8; /* dash, gap, dot, gap */
+    stroke-linecap: round;
+}
+
+.title-image {
+    margin-left: 240px; /* space between title and image */
+    margin-top: -18px;
+    width: 100px; 
+    height: 100px; 
+    object-fit: contain; /* image fits within space */
+    vertical-align: middle; 
+}
+
+/* container to move everything below title */
+.container {
+    padding-top: 20px;
+    text-align: center;
+    width: 100%; 
+}
+
+
+.form-row select,
+.form-row input {
+    width: 200px; 
+    font-size: 18px; 
+    border-radius: 15px; 
+    padding: 15px; 
+    border: 2px solid #ccc; 
+    background-color: white; 
+    color: #333333;
+    transition: all 0.3s ease; 
+    font-family: 'Jersey 15', sans-serif; 
+    box-shadow: none; 
+}
+
+/* styling file input */
+form input[type="file"] {
+    margin-right: 10px; 
+    margin-top: 0; 
+    margin-bottom: 20px;
+    border-radius: 15px;
+    padding: 18px; 
+    border: 2px solid #ccc; 
+    font-family: 'Jersey 15', sans-serif; 
+    font-size: 20px;
+    width: 250px; 
+    background-color: white; 
+    color: #333333; 
+    box-shadow: none; 
+}
+
+/* hover effect for form elements */
+.form-row select:hover,
+.form-row input:hover,
+form input[type="file"]:hover {
+    border-color: #3399ff; 
+    box-shadow: 0 0 15px #3399ff; 
+    transform: scale(1.05); 
+}
+
+
+/* Styling for the submit button */
+button[type="submit"] {
+    margin-top: 30px; 
+    border-radius: 15px; 
+    padding: 0; 
+    border: none; 
+    background-image: url('/static/images/submit_button.png'); 
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    color: transparent;
+    cursor: pointer; 
+    transition: transform 0.3s ease; 
+    font-family: 'Jersey 15', sans-serif; 
+    width: 400px;
+    height: 120px;
+}
+
+/* Button hover effect */
+button[type="submit"]:hover {
+    transform: scale(1.08); 
+}
+
