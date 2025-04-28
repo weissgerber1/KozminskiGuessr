@@ -1,0 +1,73 @@
+/* Style for the classroom image */
+#classroom-image {
+    border-radius: 10px;      /* Slightly rounded corners */
+    width: 450px;             /* Set the width */
+    height: auto;             /* Maintain aspect ratio */
+    object-fit: cover;        /* Ensure the image covers the area */
+    border: 2px dashed white; /* White dashed border */
+    margin-bottom: 30px;      /* Adds space between the image and dropdowns */
+}
+
+
+#score-image {
+    position: fixed;
+    left: -20px;
+    top: 38.4%;
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+#game-container, #score-ticker, #round-counter, #points-explanation {
+    margin-top: 80px; /* Push down after the header */
+}
+
+
+#guess-btn {
+    margin-top: 30px; 
+    border-radius: 15px; 
+    padding: 0; 
+    border: none;             /* Remove border */
+    background-color: transparent;  /* Remove any default background */
+    background-image: url('/static/images/submit_button.png');  /* Use your own image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: transparent;
+    cursor: pointer;
+    transition: transform 0.3s ease; 
+    font-family: 'Jersey 15', sans-serif; 
+    width: 400px;
+    height: 120px;
+}
+
+/* Button hover effect */
+#guess-btn:hover {
+    transform: scale(1.08); 
+}
+
+
+/* Style for the dropdowns and input field */
+#building,
+#floor,
+#classroom {
+    width: 200px;              /* Set the width */
+    font-size: 18px;           /* Font size */
+    border-radius: 15px;       /* Rounded corners */
+    padding: 15px;             /* Padding */
+    border: 2px solid #ccc;    /* Border style */
+    background-color: white;   /* White background */
+    color: #333333;            /* Text color */
+    transition: all 0.3s ease; /* Smooth transition */
+    font-family: 'Jersey 15', sans-serif;  /* Custom font */
+    box-shadow: none;          /* No shadow by default */
+}
+
+/* Hover effect for form elements */
+#building:hover,
+#floor:hover,
+#classroom:hover {
+    border-color: #3399ff;     /* Blue border on hover */
+    box-shadow: 0 0 15px #3399ff; /* Blue glow on hover */
+    transform: scale(1.05);     /* Slight scale effect on hover */
+}
+

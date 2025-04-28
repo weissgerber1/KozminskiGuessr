@@ -3,19 +3,48 @@
 <head>
     <title>Game - Kozminski Guessr</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}">
     <style>
-        #game-container { text-align: center; margin-top: 50px; }
-        #score-ticker { position: fixed; left: 20px; top: 50%; font-size: 24px; }
+        #game-container { text-align: center; margin-top: 80px; }
+        #score-ticker { position: fixed; left: 30px; top: 40%; font-size: 24px; }
         #error-message { color: red; margin-top: 20px; font-size: 16px; }
         .correct { border-color: green; background-color: #e0ffe0; }
         .incorrect { border-color: red; background-color: #ffe0e0; }
-        #round-counter { position: absolute; left: 20px; top: 20px; font-size: 18px; }
-        #points-explanation { position: fixed; right: 20px; top: 20px; width: 200px; text-align: left; font-size: 14px; }
+        #round-counter { position: fixed; left: 30px; top: 20px; font-size: 22px; }
+        #points-explanation { position: fixed; right: 30px; top: 20px; width: 300px; text-align: left; font-size: 18px; }
+        #score-image { margin-bottom: 10px; }
     </style>
 </head>
 <body>
+    <div class="header">
+        <!-- Left side of the header -->
+        <div class="header-left">
+            <button onclick="location.href='/'">Main</button>
+            <button onclick="location.href='/leaderboard'">Leaderboard</button>
+            <button onclick="location.href='/contribute'">Contribute</button>
+        </div>
+    
+        <!-- Right side of the header with user login / logout functionality -->
+        <div class="header-right">
+            {% if current_user %}
+                <div class="user-menu">
+                    <button class="user-menu-button">
+                        {{ current_user.username }}
+                        {% if current_user.is_guest %}(Guest){% endif %}
+                    </button>
+                    <div class="user-menu-dropdown">
+                        <a href="{{ url_for('logout') }}">Log out</a>
+                    </div>
+                </div>
+            {% else %}
+                <button onclick="location.href='{{ url_for('login') }}'">Log In</button>
+            {% endif %}
+        </div>
+    </div>
+
     <div id="score-ticker">Score: 0</div>
     <div id="round-counter">Round: 1/5</div>
+    <img id="score-image" src="/static/images/lion_game.png" alt="Score Image" style="max-width: 100px;">
     <div id="game-container">
         <img id="classroom-image" src="" alt="Classroom" style="max-width: 50%;">
         <div>
