@@ -17,7 +17,7 @@ bcrypt = Bcrypt(app)
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-from models import User, Classroom, Photo, Game
+from models import User, Classroom, Photo, Game, GameSession
 
 # login required decorator
 def login_required(f):
@@ -191,7 +191,19 @@ def guess():
 def save_score():
     data = request.json
     score = data['score']
+    game_session_id = data['game_session_id']
     user = db.session.get(User, session['user_id'])
+
+    # Check if this game session ID has already been used
+    existing_session = GameSession.query.filter_by(session_id=game_session_id, user_id=user.id).first()
+    if existing_session:
+        return jsonify({'error': 'Score already saved for this game session'}), 400
+
+    # Save the game session
+    game_session = GameSession(session_id=game_session_id, user_id=user.id, score=score)
+    db.session.add(game_session)
+
+    # Save the game and update user scores
     game = Game(user_id=user.id, score=score)
     user.total_score += score
     if score > user.high_score:

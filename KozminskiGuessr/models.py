@@ -34,3 +34,11 @@ class Game(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     score = db.Column(db.Integer, nullable=False)
     played_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+class GameSession(db.Model):
+    __tablename__ = 'game_sessions'
+    id = db.Column(db.Integer, primary_key=True)
+    session_id = db.Column(db.String(50), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)

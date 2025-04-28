@@ -2,8 +2,10 @@ let photos = [];
 let currentRound = 0;
 let scores = [];
 let totalScore = 0;
+let gameSessionId = null;
 
 async function startGame() {
+    gameSessionId = Date.now().toString();
     const response = await fetch('/api/get_photos');
     photos = await response.json();
     currentRound = 0;
@@ -63,16 +65,29 @@ async function makeGuess() {
 
     displayFeedback(result);
     if (currentRound === 4) {
-        // Show the "Play Again" button directly after the last guess
+        // Save the score before switching to "Play Again"
+        await saveScore();
         const btn = document.getElementById('guess-btn');
         btn.style.backgroundImage = "url('/static/images/play_again_button.png')";
         btn.onclick = startGame;
     } else {
-        // Otherwise, show the "Next Round" button
         const btn = document.getElementById('guess-btn');
         btn.style.backgroundImage = "url('/static/images/next_round_button.png')";
         btn.onclick = nextRound;
     }
+}
+
+async function saveScore() {
+    const response = await fetch('/api/save_score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ score: totalScore, game_session_id: gameSessionId })
+    });
+    if (!response.ok) {
+        console.error('Failed to save score:', await response.text());
+    }
+    const data = await response.json();
+    return data;
 }
 
 function nextRound() {
@@ -80,8 +95,8 @@ function nextRound() {
     if (currentRound < 5) {
         showRound();
         const btn = document.getElementById('guess-btn');
-        btn.style.backgroundImage = "url('/static/images/button_guess.png')"; // switch back to GUESS button image
-        btn.onclick = makeGuess; // set the click back to guessing
+        btn.style.backgroundImage = "url('/static/images/button_guess.png')";
+        btn.onclick = makeGuess;
     } else {
         showSummary();
     }
@@ -91,13 +106,11 @@ function displayFeedback(result) {
     const building = document.getElementById('building');
     const floor = document.getElementById('floor');
     const classroom = document.getElementById('classroom');
-    
-    // Remove previous feedback classes
+
     building.classList.remove('correct', 'incorrect');
     floor.classList.remove('correct', 'incorrect');
     classroom.classList.remove('correct', 'incorrect');
-    
-    // Apply new feedback classes
+
     if (result.correct || result.correct_building === building.value) {
         building.classList.add('correct');
     } else {
@@ -122,24 +135,18 @@ function displayFeedback(result) {
 }
 
 async function showSummary() {
-    await fetch('/api/save_score', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ score: totalScore })
-    }).then(res => res.json()).then(data => {
-        const summary = document.getElementById('summary');
-        summary.style.display = 'block';
-        summary.innerHTML = 
-            `<h2>Game Summary</h2>
-            ${scores.map((s, i) => `<p>Round ${i + 1}: ${s} points</p>`).join('')}
-            <p>Total Score: ${totalScore}</p>
-            <p>Your High Score: ${data.high_score}</p>`;
+    const data = await saveScore();
+    const summary = document.getElementById('summary');
+    summary.style.display = 'block';
+    summary.innerHTML = 
+        `<h2>Game Summary</h2>
+        ${scores.map((s, i) => `<p>Round ${i + 1}: ${s} points</p>`).join('')}
+        <p>Total Score: ${totalScore}</p>
+        <p>Your High Score: ${data.high_score}</p>`;
 
-        const btn = document.getElementById('guess-btn');
-        btn.style.backgroundImage = "url('/static/images/play_again_button.png')"; // Set the Play Again button image
-        btn.onclick = startGame; // Call startGame when clicked
-      
-    });
+    const btn = document.getElementById('guess-btn');
+    btn.style.backgroundImage = "url('/static/images/play_again_button.png')";
+    btn.onclick = startGame;
 }
 
 async function updateClassroomList() {
@@ -158,14 +165,3 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('floor').addEventListener('change', updateClassroomList);
     document.getElementById('classroom').addEventListener('input', updateClassroomList);
 });
-
-async function startGame() {
-    const response = await fetch('/api/get_photos');
-    photos = await response.json();
-    currentRound = 0;
-    scores = [];
-    totalScore = 0;
-    document.getElementById('score-ticker').textContent = `Score: ${totalScore}`;
-    document.getElementById('summary').style.display = 'none';
-    showRound(); // Reset the round flow
-}
