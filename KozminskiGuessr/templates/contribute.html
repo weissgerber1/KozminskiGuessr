@@ -45,9 +45,9 @@
     
 
     <div class="container">
-        {% if message %}<p>{{ message }}</p>{% endif %}
+        {% if message %}<p class="thank-you-message">{{ message }}</p>{% endif %}
         <form method="POST" enctype="multipart/form-data" onsubmit="return confirm('Are you sure?');">
-            
+
             <!-- File input on the first row (this is on its own line) -->
             <div class="form-row">
                 <input type="file" name="image" accept="image/*" required>
@@ -71,6 +71,7 @@
                 </select>
                 <input id="classroom" list="classroom-list" name="classroom_number" placeholder="Classroom..." required>
                 <datalist id="classroom-list"></datalist>
+                <input type="hidden" id="classroom_id" name="classroom_id">
             </div>
 
             <!-- Submit button -->
@@ -95,6 +96,7 @@
             const selectedOption = datalist.querySelector(`option[value="${selectedValue}"]`);
             const classroomId = selectedOption ? selectedOption.getAttribute('data-id') : '';
             document.getElementById('classroom_id').value = classroomId;
+            console.log('Selected classroom_id:', classroomId);
         });
 
         // Update classroom list when building or floor changes

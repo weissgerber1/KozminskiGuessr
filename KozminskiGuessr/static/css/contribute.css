@@ -127,3 +127,11 @@ button[type="submit"]:hover {
     transform: scale(1.08); 
 }
 
+/* Styling for the thank you message */
+.thank-you-message {
+    font-size: 24px;
+    color: white;
+    text-shadow: 2px 2px 5px #0056b3;
+    font-family: 'Jersey 15', sans-serif;
+    margin-top: 20px;
+}
