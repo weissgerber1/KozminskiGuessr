@@ -20,7 +20,7 @@ function showRound() {
         img.src = photos[currentRound].image_url;
         resetInputs();
         const btn = document.getElementById('guess-btn');
-        btn.textContent = 'GUESS';
+        btn.style.backgroundImage = "url('/static/images/button_guess.png')";
         btn.onclick = makeGuess;
         document.getElementById('feedback').innerHTML = '';
         document.getElementById('round-counter').textContent = `Round: ${currentRound + 1}/5`;
@@ -63,8 +63,20 @@ async function makeGuess() {
 
     displayFeedback(result);
     const btn = document.getElementById('guess-btn');
-    btn.textContent = 'NEXT ROUND';
-    btn.onclick = () => { currentRound++; showRound(); };
+    btn.style.backgroundImage = "url('/static/images/next_round_button.png')"; 
+    btn.onclick = nextRound;
+}
+
+function nextRound() {
+    currentRound++;
+    if (currentRound < 5) {
+        showRound();
+        const btn = document.getElementById('guess-btn');
+        btn.style.backgroundImage = "url('/static/images/button_guess.png')"; // switch back to GUESS button image
+        btn.onclick = makeGuess; // set the click back to guessing
+    } else {
+        showSummary();
+    }
 }
 
 function displayFeedback(result) {

@@ -28,7 +28,7 @@
     padding: 0; 
     border: none;             /* Remove border */
     background-color: transparent;  /* Remove any default background */
-    background-image: url('/static/images/submit_button.png');  /* Use your own image */
+    background-image: url('/static/images/button_guess.png');  /* Use your own image */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
