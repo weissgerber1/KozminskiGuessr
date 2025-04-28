@@ -168,5 +168,9 @@
     {"building": "A", "floor": "2", "classroom_number": "A217B"},
     {"building": "A", "floor": "2", "classroom_number": "A218"},
     {"building": "A", "floor": "2", "classroom_number": "A219"},
-    {"building": "A", "floor": "2", "classroom_number": "A220"}
+    {"building": "A", "floor": "2", "classroom_number": "A220"},
+    {"building": "C", "floor": "0", "classroom_number": "Aula Leona Koźminśkiego"},
+    {"building": "C", "floor": "0", "classroom_number": "Aula I"},
+    {"building": "C", "floor": "0", "classroom_number": "Aula II"},
+    {"building": "C", "floor": "0", "classroom_number": "Sala konferencyjna"}
 ]
