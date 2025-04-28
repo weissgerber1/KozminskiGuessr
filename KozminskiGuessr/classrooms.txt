@@ -95,6 +95,7 @@
     {"building": "D", "floor": "2", "classroom_number": "D202"},
     {"building": "D", "floor": "2", "classroom_number": "D202A"},
     {"building": "D", "floor": "2", "classroom_number": "D204"},
+    {"building": "D", "floor": "2", "classroom_number": "D205"},
     {"building": "D", "floor": "2", "classroom_number": "D206"},
     {"building": "D", "floor": "2", "classroom_number": "D207"},
     {"building": "D", "floor": "2", "classroom_number": "D208"},
