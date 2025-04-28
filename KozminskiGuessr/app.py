@@ -27,8 +27,8 @@ def login_required(f):
             return redirect(url_for('login', next=request.url))
         return f(*args, **kwargs)
     return decorated_function
+
 # context processor for user_id 
-# for displaying of the username in place of the login button
 @app.context_processor
 def inject_user():
     user_id = session.get('user_id')
@@ -150,16 +150,29 @@ def guess():
     data = request.json
     photo = db.session.get(Photo, data['photo_id'])
     classroom = db.session.get(Classroom, photo.classroom_id)
-    guess = {'building': data['building'], 'floor': data['floor'], 'classroom': data['classroom']}
-    correct = {'building': classroom.building, 'floor': classroom.floor, 'classroom': classroom.classroom_number}
+    guess = {
+        'building': data.get('building', ''),
+        'floor': data.get('floor', ''),
+        'classroom': data.get('classroom', '')
+    }
+    correct = {
+        'building': classroom.building,
+        'floor': classroom.floor,
+        'classroom': classroom.classroom_number
+    }
     
-    if guess['classroom'] == correct['classroom']:
+    # Check if fields are provided and match correctly
+    building_correct = guess['building'] and guess['building'] == correct['building']
+    floor_correct = guess['floor'] and int(guess['floor']) == correct['floor'] if guess['floor'] else False
+    classroom_correct = guess['classroom'] and guess['classroom'] == correct['classroom']
+    
+    if classroom_correct:
         score = 5
-    elif guess['building'] == correct['building'] and int(guess['floor']) == correct['floor']:
+    elif building_correct and floor_correct:
         score = 3
-    elif int(guess['floor']) == correct['floor']:
+    elif floor_correct:
         score = 2
-    elif guess['building'] == correct['building']:
+    elif building_correct:
         score = 1
     else:
         score = 0
