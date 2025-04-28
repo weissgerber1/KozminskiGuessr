@@ -36,7 +36,6 @@ function resetInputs() {
     building.value = '';
     floor.value = '';
     classroom.value = '';
-    // Remove classes to reset styling
     building.classList.remove('correct', 'incorrect');
     floor.classList.remove('correct', 'incorrect');
     classroom.classList.remove('correct', 'incorrect');
@@ -73,9 +72,27 @@ function displayFeedback(result) {
     const floor = document.getElementById('floor');
     const classroom = document.getElementById('classroom');
     
-    building.className = result.correct || result.correct_building === building.value ? 'correct' : 'incorrect';
-    floor.className = result.correct || result.correct_floor === parseInt(floor.value) ? 'correct' : 'incorrect';
-    classroom.className = result.correct || result.correct_classroom === classroom.value ? 'correct' : 'incorrect';
+    // Remove previous feedback classes
+    building.classList.remove('correct', 'incorrect');
+    floor.classList.remove('correct', 'incorrect');
+    classroom.classList.remove('correct', 'incorrect');
+    
+    // Apply new feedback classes
+    if (result.correct || result.correct_building === building.value) {
+        building.classList.add('correct');
+    } else {
+        building.classList.add('incorrect');
+    }
+    if (result.correct || result.correct_floor === parseInt(floor.value)) {
+        floor.classList.add('correct');
+    } else {
+        floor.classList.add('incorrect');
+    }
+    if (result.correct || result.correct_classroom === classroom.value) {
+        classroom.classList.add('correct');
+    } else {
+        classroom.classList.add('incorrect');
+    }
 
     let feedback = `<p>Score: ${result.score}</p>`;
     if (!result.correct) {
