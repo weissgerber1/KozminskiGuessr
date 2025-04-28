@@ -3,6 +3,7 @@
 <head>
     <title>Leaderboard - Kozminski Guessr</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
     <style>
         .leaderboard { text-align: center; margin: 50px; }
     </style>
@@ -34,16 +35,45 @@
         </div>
     </div>
 
+    <div class="leaderboard-titles">
+        <div class="leaderboard-section">
+            <div class="mainleader-title-container">
+                <img src="{{ url_for('static', filename='images/cute-lion-won.gif') }}" alt="Icon" class="title-icon">
+                <div class="mainleader-title">
+                    Main Leaderboard
+                    <svg class="border-svg" viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect x="2" y="2" width="96" height="36" rx="10" ry="10" />
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="leaderboard-list">
+                {% for user in main %}
+                <p><span class="rank-number">{{ loop.index }}.</span> {{ user.username }} - <span class="leaderboard-score">{{ user.total_score }}</span> (High: {{ user.high_score }})</p>
+
+                {% endfor %}
+            </div>
+            
+        </div>
+    
+        <div class="leaderboard-section">
+            <div class="mainleader-title-container">
+                <div class="mainleader-title contribution-title">
+                    Contribution Leaderboard
+                    <svg class="border-svg" viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect x="2" y="2" width="96" height="36" rx="10" ry="10" />
+                    </svg>
+                </div>
+            </div>
+            <div class="leaderboard-list">
+                {% for user, count in contrib %}
+                <p><span class="rank-number">{{ loop.index }}.</span> {{ user }} - <span class="leaderboard-score">{{ count }}</span> photos</p>
+
+                {% endfor %}
+            </div>
+            
+        </div>
     </div>
-    <div class="leaderboard">
-        <h1>Main Leaderboard</h1>
-        {% for user in main %}
-            <p>{{ loop.index }}. {{ user.username }} - {{ user.total_score }} (High: {{ user.high_score }})</p>
-        {% endfor %}
-        <h1>Contribution Leaderboard</h1>
-        {% for user, count in contrib %}
-            <p>{{ loop.index }}. {{ user }} - {{ count }} photos</p>
-        {% endfor %}
-    </div>
+    
 </body>
 </html>
