@@ -65,11 +65,8 @@ async function makeGuess() {
 
     displayFeedback(result);
     if (currentRound === 4) {
-        // Save the score before switching to "Play Again"
-        await saveScore();
-        const btn = document.getElementById('guess-btn');
-        btn.style.backgroundImage = "url('/static/images/play_again_button.png')";
-        btn.onclick = startGame;
+        const data = await saveScore();
+        showSummary(data);
     } else {
         const btn = document.getElementById('guess-btn');
         btn.style.backgroundImage = "url('/static/images/next_round_button.png')";
@@ -134,8 +131,7 @@ function displayFeedback(result) {
     document.getElementById('feedback').innerHTML = feedback;
 }
 
-async function showSummary() {
-    const data = await saveScore();
+function showSummary(data) {
     const summary = document.getElementById('summary');
     summary.style.display = 'block';
     summary.innerHTML = 
