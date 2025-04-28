@@ -62,9 +62,17 @@ async function makeGuess() {
     document.getElementById('score-ticker').textContent = `Score: ${totalScore}`;
 
     displayFeedback(result);
-    const btn = document.getElementById('guess-btn');
-    btn.style.backgroundImage = "url('/static/images/next_round_button.png')"; 
-    btn.onclick = nextRound;
+    if (currentRound === 4) {
+        // Show the "Play Again" button directly after the last guess
+        const btn = document.getElementById('guess-btn');
+        btn.style.backgroundImage = "url('/static/images/play_again_button.png')";
+        btn.onclick = startGame;
+    } else {
+        // Otherwise, show the "Next Round" button
+        const btn = document.getElementById('guess-btn');
+        btn.style.backgroundImage = "url('/static/images/next_round_button.png')";
+        btn.onclick = nextRound;
+    }
 }
 
 function nextRound() {
@@ -121,13 +129,16 @@ async function showSummary() {
     }).then(res => res.json()).then(data => {
         const summary = document.getElementById('summary');
         summary.style.display = 'block';
-        summary.innerHTML = `
-            <h2>Game Over</h2>
+        summary.innerHTML = 
+            `<h2>Game Summary</h2>
             ${scores.map((s, i) => `<p>Round ${i + 1}: ${s} points</p>`).join('')}
             <p>Total Score: ${totalScore}</p>
-            <p>Your High Score: ${data.high_score}</p>
-            <button onclick="startGame()">PLAY AGAIN</button>
-        `;
+            <p>Your High Score: ${data.high_score}</p>`;
+
+        const btn = document.getElementById('guess-btn');
+        btn.style.backgroundImage = "url('/static/images/play_again_button.png')"; // Set the Play Again button image
+        btn.onclick = startGame; // Call startGame when clicked
+      
     });
 }
 
@@ -147,3 +158,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('floor').addEventListener('change', updateClassroomList);
     document.getElementById('classroom').addEventListener('input', updateClassroomList);
 });
+
+async function startGame() {
+    const response = await fetch('/api/get_photos');
+    photos = await response.json();
+    currentRound = 0;
+    scores = [];
+    totalScore = 0;
+    document.getElementById('score-ticker').textContent = `Score: ${totalScore}`;
+    document.getElementById('summary').style.display = 'none';
+    showRound(); // Reset the round flow
+}
