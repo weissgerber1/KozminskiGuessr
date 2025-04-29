@@ -233,4 +233,5 @@ def get_classrooms():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # create tables if they don't exist
-    app.run(debug=True)
+    # Bind to 0.0.0.0 and use the PORT environment variable (default to 5000 locally)
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)), debug=True)
